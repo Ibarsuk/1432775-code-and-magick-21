@@ -27,7 +27,7 @@ const fillText = (ctx, message, x, y, font, color = `#000000`) => {
 
 const getMaxTime = (times) => {
   let maxTime = times[0];
-  times.forEach(function (value) {
+  times.forEach((value) => {
     if (value > maxTime) {
       maxTime = value;
     }
@@ -53,7 +53,7 @@ const renderAllGraphs = (ctx, names, times) => {
   const playersMaxTime = getMaxTime(times);
   let x = CLOUD_POSITION_X + 20;
   let y = CLOUD_POSITION_Y + CLOUD_HEIGHT - 26;
-  times.forEach(function (value, i) {
+  times.forEach((value, i) => {
     const barColor = names[i] === `Вы` ? `rgba(255, 0, 0, 1)` : `hsl(240, 100%, ${getRandomInt(1, 100)}%)`;
     renderGraph(ctx, x + ((GRAPH_WIDTH + GRAPH_GAP) * i), y, names[i], value.toFixed(), playersMaxTime, barColor);
   });
@@ -67,5 +67,3 @@ window.renderStatistics = (ctx, names, times) => {
   fillText(ctx, WIN_MESSAGE_SECOND, CLOUD_POSITION_X + 20, CLOUD_POSITION_Y + 36, FONT, WIN_MESSAGE_COLOR);
   renderAllGraphs(ctx, names, times);
 };
-
-
