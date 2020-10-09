@@ -93,6 +93,31 @@
 
   setupSimilar.classList.remove(`hidden`);
 
+  const form = setup.querySelector(`.setup-wizard-form`);
+
+  const onSuccessPost = () => {
+    setup.classList.add(`hidden`);
+  };
+
+  const onErrorGet = function (errorMessage) {
+    const node = document.createElement(`div`);
+    node.style = `z-index: 100; margin: 0 auto; text-align: center; background-color: red;`;
+    node.style.position = `absolute`;
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = `30px`;
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement(`afterbegin`, node);
+  };
+
+  window.load.load(window.load.GET_URL, `GET`, window.wizardsList.renderWizardsList, onErrorGet);
+
+  form.addEventListener(`submit`, (evt) => {
+    window.load.load(window.load.POST_URL, `POST`, onSuccessPost, ``, new FormData(form));
+    evt.preventDefault();
+  });
+
   window.setup = {
     setup
   };

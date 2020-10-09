@@ -1,6 +1,8 @@
 'use strict';
 
 (() => {
+  const WIZARDS_NUMBER = 4;
+
   const names = [
     `Иван`,
     `Хуан Себастьян`,
@@ -34,27 +36,29 @@
     }
     return wizardsArray;
   };
-  const wizardsArr = getWizardsArray(names, surnames, window.util.coatColors, window.util.eyesColors);
+  const wizardsTestArr = getWizardsArray(names, surnames, window.util.coatColors, window.util.eyesColors);
 
   const tempalte = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
   const wizardsList = document.querySelector(`.setup-similar-list`);
 
-  const renderWizardCard = (index) => {
+  const renderWizardCard = (index, wizardsArr) => {
     const wizardCard = tempalte.cloneNode(true);
     wizardCard.querySelector(`.setup-similar-label`).textContent = wizardsArr[index].name;
-    wizardCard.querySelector(`.wizard-coat`).style.fill = wizardsArr[index].coatColor;
-    wizardCard.querySelector(`.wizard-eyes`).style.fill = wizardsArr[index].eyesColor;
+    wizardCard.querySelector(`.wizard-coat`).style.fill = wizardsArr[index].colorCoat;
+    wizardCard.querySelector(`.wizard-eyes`).style.fill = wizardsArr[index].colorEyes;
     return wizardCard;
   };
 
-  const renderWizardsList = () => {
+  const renderWizardsList = (wizardsArr) => {
     const fragment = document.createDocumentFragment();
-    for (let i = 0; i < wizardsArr.length; i++) {
-      fragment.appendChild(renderWizardCard(i));
+    for (let i = 0; i < WIZARDS_NUMBER; i++) {
+      fragment.appendChild(renderWizardCard(i, wizardsArr));
     }
     wizardsList.appendChild(fragment);
   };
 
-  renderWizardsList();
-
+  window.wizardsList = {
+    renderWizardsList,
+    wizardsTestArr
+  };
 })();
