@@ -74,16 +74,20 @@
       element.style.fill = color;
     }
     setup.querySelector(`input[name="${htmlClass}-color"]`).value = color;
+    return color;
   };
 
   const wizardCoat = setup.querySelector(`.setup-wizard .wizard-coat`);
+
   const chooseWizardCoat = () => {
-    colorize(wizardCoat, window.util.coatColors, `coat`);
+    window.util.startCoatColor = colorize(wizardCoat, window.util.coatColors, `coat`);
+    window.debounce(window.similarWizards.updateWizards);
   };
 
   const wizardEyes = setup.querySelector(`.setup-wizard .wizard-eyes`);
   const chooseWizardEyes = () => {
-    colorize(wizardEyes, window.util.eyesColors, `eyes`);
+    window.util.startEyesColor = colorize(wizardEyes, window.util.eyesColors, `eyes`);
+    window.debounce(window.similarWizards.updateWizards);
   };
 
   const wizardFireball = setup.querySelector(`.setup-fireball-wrap`);
@@ -99,6 +103,11 @@
     setup.classList.add(`hidden`);
   };
 
+  const onSuccessGet = (wizardsArr) => {
+    window.load.wizards = wizardsArr;
+    window.similarWizards.updateWizards();
+  };
+
   const onErrorGet = function (errorMessage) {
     const node = document.createElement(`div`);
     node.style = `z-index: 100; margin: 0 auto; text-align: center; background-color: red;`;
@@ -111,7 +120,7 @@
     document.body.insertAdjacentElement(`afterbegin`, node);
   };
 
-  window.load.load(window.load.GET_URL, `GET`, window.wizardsList.renderWizardsList, onErrorGet);
+  window.load.load(window.load.GET_URL, `GET`, onSuccessGet, onErrorGet);
 
   form.addEventListener(`submit`, (evt) => {
     window.load.load(window.load.POST_URL, `POST`, onSuccessPost, ``, new FormData(form));
@@ -119,7 +128,8 @@
   });
 
   window.setup = {
-    setup
+    setup,
+    onSuccessGet
   };
 })();
 

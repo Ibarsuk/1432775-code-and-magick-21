@@ -6,6 +6,7 @@
   const GET_URL = `https://21.javascript.pages.academy/code-and-magick/data`;
   const TIMEOUT = 10000;
   const SUCCESS_STATUS = 200;
+  let wizards = [];
 
   const load = (url, requestType, onSuccessCallback, onErrorCallback, data = ``) => {
     const xhr = new XMLHttpRequest();
@@ -39,5 +40,6 @@
     load,
     POST_URL,
     GET_URL,
+    wizards
   };
 })();

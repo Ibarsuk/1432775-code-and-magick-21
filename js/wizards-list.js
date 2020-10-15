@@ -25,7 +25,7 @@
     `Ирвинг`
   ];
 
-  const getWizardsArray = (namesArr, surnamesArr, coatColorsArr, eyesColorsArr) => {
+  const getWizardsTestArray = (namesArr, surnamesArr, coatColorsArr, eyesColorsArr) => {
     const wizardsArray = [];
     for (let i = 0; i < names.length; i++) {
       const wizard = {};
@@ -36,7 +36,7 @@
     }
     return wizardsArray;
   };
-  const wizardsTestArr = getWizardsArray(names, surnames, window.util.coatColors, window.util.eyesColors);
+  const wizardsTestArr = getWizardsTestArray(names, surnames, window.util.coatColors, window.util.eyesColors);
 
   const tempalte = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
   const wizardsList = document.querySelector(`.setup-similar-list`);
@@ -54,11 +54,15 @@
     for (let i = 0; i < WIZARDS_NUMBER; i++) {
       fragment.appendChild(renderWizardCard(i, wizardsArr));
     }
+    while (wizardsList.firstChild) {
+      wizardsList.removeChild(wizardsList.firstChild);
+    }
     wizardsList.appendChild(fragment);
   };
 
   window.wizardsList = {
     renderWizardsList,
-    wizardsTestArr
+    wizardsTestArr,
+    wizardsList
   };
 })();

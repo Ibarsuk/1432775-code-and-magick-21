@@ -32,10 +32,15 @@
     `#e6e848`
   ];
 
+  let startCoatColor = `rgb(101, 137, 164)`;
+  let startEyesColor = `black`;
+
   window.util = {
     getRandomInt,
     coatColors,
     eyesColors,
-    fireballColors
+    fireballColors,
+    startCoatColor,
+    startEyesColor
   };
 })();
